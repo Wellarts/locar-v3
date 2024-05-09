@@ -143,7 +143,7 @@ class ContasPagarResource extends Resource
                             3 => 'Cartão',
                         ]),
                     Tables\Columns\TextColumn::make('valor_parcela')
-                        ->summarize(Sum::make()->money('BRL')->label('Total Parcelas'))
+                        ->summarize(Sum::make()->money('BRL')->label('Total'))
                         ->badge()
                         ->alignCenter()
                         ->color('danger')
@@ -152,6 +152,7 @@ class ContasPagarResource extends Resource
                         ->label('Pago')
                         ->boolean(),
                     Tables\Columns\TextColumn::make('valor_pago')
+                        ->summarize(Sum::make()->money('BRL')->label('Total'))
                         ->badge()
                         ->alignCenter()
                         ->color('warning')

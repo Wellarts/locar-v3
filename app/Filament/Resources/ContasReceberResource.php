@@ -38,6 +38,7 @@ class ContasReceberResource extends Resource
             ->schema([
                 Forms\Components\Select::make('cliente_id')
                     ->label('Cliente')
+                    ->searchable()
                     ->options(Cliente::all()->pluck('nome', 'id')->toArray())
                     ->required(),
                 Forms\Components\TextInput::make('valor_total')
@@ -160,6 +161,7 @@ class ContasReceberResource extends Resource
                 ->label('Recebido')
                 ->boolean(),
             Tables\Columns\TextColumn::make('valor_recebido')
+                ->summarize(Sum::make()->money('BRL')->label('Total'))
                 ->label('Valor Recebido')
                 ->alignCenter()
                 ->badge()
