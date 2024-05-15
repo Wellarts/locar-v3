@@ -202,6 +202,7 @@ class ContasReceberResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
+                ->modalHeading('Editar conta a receber')
                 ->after(function ($data, $record) {
 
                     if($record->status == true)

@@ -192,6 +192,7 @@ class ContasPagarResource extends Resource
                     ])
             ->actions([
                 Tables\Actions\EditAction::make()
+                ->modalHeading('Editar conta a pagar')
                 ->after(function ($data, $record) {
 
                     if($record->status = 1)
