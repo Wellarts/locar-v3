@@ -87,16 +87,16 @@ class ClienteResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('rede_social')
-                    ->label('Rede Social'),                    
+                    ->label('Rede Social'),
                 Forms\Components\TextInput::make('cnh')
-                        ->label('CNH'),                  
+                        ->label('CNH'),
                 Forms\Components\DatePicker::make('validade_cnh')
                         ->format('d/m/Y')
-                        ->label('Valiade da CNH'),                    
+                        ->label('Valiade da CNH'),
                 Forms\Components\TextInput::make('rg')
                         ->label('RG'),
                 Forms\Components\TextInput::make('exp_rg')
-                        ->label('Orgão Exp.'),                    
+                        ->label('Orgão Exp.'),
                 Forms\Components\Select::make('estado_exp_rg')
                         ->searchable()
                         ->label('UF - Expedidor')
@@ -106,8 +106,9 @@ class ClienteResource extends Resource
                                 'xl' => 2,
                                 '2xl' => 2,
                             ])
+                            ->downloadable()
                         ->label('Foto CNH'),
-                    
+
                 Forms\Components\DatePicker::make('data_nascimento'),
                 ])
             ]);
