@@ -26,11 +26,34 @@ class LocacaoPorMes extends Page implements HasTable
 
     protected static ?string $navigationGroup = 'Consultas';
 
-    protected static ?string $title = 'Lucratividade Mensal';
+    protected static ?string $title = 'Faturamento Mensal';
 
     public function mount()
     {
         Temp_lucratividade::truncate();
+
+        $Locacoes = Locacao::all();
+
+        foreach($Locacoes as $Locacao){
+
+            $valorLocacaoDia = ($Locacao->valor_total_desconto / $Locacao->qtd_diarias);
+
+           // dd($valorLocacaoDia);
+
+                for($x=1;$x<=$Locacao->qtd_diarias;$x++){
+
+                    $addLocacaoDia = [
+                        'cliente_id'  => $Locacao->cliente_id,
+                        'veiculo_id'  => $Locacao->veiculo_id,
+                        'data_saida'  => $Locacao->data_saida,
+                        'qtd_diaria'  => 1,
+                        'valor_diaria'  => $valorLocacaoDia,
+                    ];
+
+                    Temp_lucratividade::create($addLocacaoDia);
+
+                }
+        }
 
         $Locacoes = Locacao::all();
 
@@ -104,7 +127,7 @@ class LocacaoPorMes extends Page implements HasTable
                            ->when($data['data_saida_ate'],
                                fn($query) => $query->whereDate('data_saida', '<=', $data['data_saida_ate']));
                   })
-                    
+
                 ])
             ->bulkActions([
 
