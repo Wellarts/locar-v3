@@ -62,6 +62,7 @@ class LocacaoResource extends Resource
                                     }),
                                 Forms\Components\Select::make('veiculo_id')
                                     ->required()
+                                    ->label('Veículo')
                                     ->relationship(
                                         name: 'veiculo',
                                         modifyQueryUsing: fn (Builder $query) => $query->where('status',1)->orderBy('modelo')->orderBy('placa'),
@@ -132,6 +133,8 @@ class LocacaoResource extends Resource
                                     ->readOnly()
                                     ->required(),
                                 Forms\Components\Textarea::make('obs')
+                                    ->autosize()
+                                    ->columnSpanFull()
                                     ->label('Observações'),
                                 Forms\Components\Toggle::make('status')
                                     ->label('Finalizar Locação'),
