@@ -230,7 +230,7 @@
         <tr>
             <td><p style="margin: 10%">Rio de Janeiro,
 
-                {{ $dataAtual->formatLocalized('%d de %B de %Y') }}
+                {{ $dataAtual->isoFormat('DD MMMM YYYY') }}
             </p></td>
         </tr>
         <tr>
@@ -410,7 +410,7 @@
         efeitos legais.</p>
 </div><br><br>
 
-        <div style="text-align: center; font-size: 12">Rio de Janeiro, {{ $dataAtual->formatLocalized('%d de %B de %Y') }}<br><br><br><br>
+        <div style="text-align: center; font-size: 12">Rio de Janeiro, {{ $dataAtual->isoFormat('DD MMMM YYYY') }}<br><br><br><br>
 
             ___________________________________________________________<br>
             LOCATÁRIO: {{$locacao->Cliente->nome}}<br><Br><br><br>
