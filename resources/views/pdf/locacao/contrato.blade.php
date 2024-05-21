@@ -22,21 +22,28 @@
         border-style: solid;
         border-color: grey;
         width: 100%;
+        border-collapse: collapse;
     }
+
+
+    #ficha td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    }
+
     .tx {
         line-height:1.5;
     }
 
-</style>
 
-<style>
-    .tela {
+  .tela {
         width: 50%;
         height: 100px;
         border: 0px solid black;
         float: left;
 
     }
+
 </style>
 
 </head>
@@ -61,7 +68,7 @@
     <span class="texto">LOCATÁRIO</span>
 </div>
 
-<table class="tabelas" width="100%" >
+<table class="tabelas" width="100%" id='ficha'>
     <tr>
         <td colspan="2">
             <b class="tx">Nome:</b> {{$locacao->Cliente->nome}}</p>
@@ -102,7 +109,7 @@
 <div class="retangulo">
     <span class="texto">VEÍCULO</span>
 </div>
-<table class="tabelas">
+<table class="tabelas" id='ficha'>
     <tr>
         <td>
             <b class="tx">Marca:</b> {{$locacao->Veiculo->Marca->nome}}
@@ -129,7 +136,7 @@
 <div class="retangulo">
     <span class="texto">LOCAÇÃO</span>
 </div>
-<table class="tabelas">
+<table class="tabelas" id='ficha'>
     <tr>
         <td>
             <b class="tx">Data da Saída:</b> {{\Carbon\Carbon::parse($locacao->data_saida)->format('d/m/Y')}}
@@ -154,22 +161,24 @@
         <td colspan="2">
             <b class="tx">Valor da Diária R$:</b> {{$locacao->Veiculo->valor_diaria}}
         </td>
+
     </tr>
     <tr>
-        <td colspan="2">
+        <td >
             <b class="tx">Km de Retorno:</b> {{$locacao->km_retorno}}
         </td>
-        <td colspan="2">
+        <td >
             <b class="tx">Valor do Desconto R$:</b> {{$locacao->valor_desconto}}
         </td>
         <td colspan="2">
             <b class="tx">Valor Total R$:</b> {{$locacao->valor_total_desconto}}
         </td>
+
     </tr>
-</p>
+
 </table>
 
-<table class="tabelas">
+<table class="tabelas" id='ficha'>
     <tr>
         <td>
             <b class="tx">Observações: </b> {{$locacao->obs}}
