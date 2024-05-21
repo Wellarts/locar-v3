@@ -77,6 +77,7 @@ class ContasReceberResource extends Resource
                         1 => 'Dinheiro',
                         2 => 'Pix',
                         3 => 'Cartão',
+                        4 => 'Boleto',
                     ]),
                 Forms\Components\Hidden::make('ordem_parcela')
                     ->label('Parcela Nº')
@@ -147,6 +148,7 @@ class ContasReceberResource extends Resource
                     1 => 'Dinheiro',
                     2 => 'Pix',
                     3 => 'Cartão',
+                    4 => 'Boleto',
                 ]),
 
 
