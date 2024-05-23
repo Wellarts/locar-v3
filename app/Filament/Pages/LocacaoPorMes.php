@@ -4,17 +4,21 @@ namespace App\Filament\Pages;
 
 use App\Models\Locacao;
 use App\Models\Temp_lucratividade;
+use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Pages\Page;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables;
+use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+
 
 class LocacaoPorMes extends Page implements HasTable
 {
@@ -28,10 +32,10 @@ class LocacaoPorMes extends Page implements HasTable
 
     protected static ?string $title = 'Faturamento Mensal';
 
-    public static function shouldRegisterNavigation(): bool
+  /*  public static function shouldRegisterNavigation(): bool
         {
             return false;
-        }
+ } */
 
     public function mount()
     {
@@ -44,44 +48,23 @@ class LocacaoPorMes extends Page implements HasTable
             $valorLocacaoDia = ($Locacao->valor_total_desconto / $Locacao->qtd_diarias);
 
            // dd($valorLocacaoDia);
-
+            $dataDiarias = Carbon::create($Locacao->data_saida)->addDay(1);
                 for($x=1;$x<=$Locacao->qtd_diarias;$x++){
 
                     $addLocacaoDia = [
                         'cliente_id'  => $Locacao->cliente_id,
                         'veiculo_id'  => $Locacao->veiculo_id,
-                        'data_saida'  => $Locacao->data_saida,
+                        'data_saida'  => $dataDiarias,
                         'qtd_diaria'  => 1,
                         'valor_diaria'  => $valorLocacaoDia,
                     ];
 
                     Temp_lucratividade::create($addLocacaoDia);
-
+                    $dataDiarias = Carbon::create($dataDiarias)->addDay(1);
                 }
         }
 
-        $Locacoes = Locacao::all();
-
-        foreach($Locacoes as $Locacao){
-
-            $valorLocacaoDia = ($Locacao->valor_total_desconto / $Locacao->qtd_diarias);
-
-           // dd($valorLocacaoDia);
-
-                for($x=1;$x<=$Locacao->qtd_diarias;$x++){
-
-                    $addLocacaoDia = [
-                        'cliente_id'  => $Locacao->cliente_id,
-                        'veiculo_id'  => $Locacao->veiculo_id,
-                        'data_saida'  => $Locacao->data_saida,
-                        'qtd_diaria'  => 1,
-                        'valor_diaria'  => $valorLocacaoDia,
-                    ];
-
-                    Temp_lucratividade::create($addLocacaoDia);
-
-                }
-        }
+     
     }
 
     public function table(Table $table): Table
@@ -106,6 +89,7 @@ class LocacaoPorMes extends Page implements HasTable
                                 ->sortable()
                                 ->alignCenter(),
                             TextColumn::make('qtd_diaria')
+                                ->Summarize(Count::make('qtd_diaria')->label('Total de Diárias'))
                                 ->alignCenter()
                                 ->label('Qtd Diárias'),
                             TextColumn::make('valor_diaria')
