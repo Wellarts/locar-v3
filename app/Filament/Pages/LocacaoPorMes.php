@@ -64,12 +64,14 @@ class LocacaoPorMes extends Page implements HasTable
                 }
         }
 
-     
+
     }
 
     public function table(Table $table): Table
     {
         return $table
+        ->description('Esta consulta divide as locações pela quantidade de diárias e coloca cada diária da locação
+        na data dos dias em sequência a partir da data da saída, assim teremos o valor da diária por data da utilização do véiculo.')
             ->query(Temp_lucratividade::query())
           //  ->defaultGroup('data_venda','year')
             ->columns([
