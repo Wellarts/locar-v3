@@ -42,8 +42,10 @@ class ContasPagarResource extends Resource
                     ->options(Fornecedor::all()->pluck('nome', 'id')->toArray())
                     ->required(),
                 Forms\Components\TextInput::make('valor_total')
+                    ->numeric()
                     ->required(),
                 Forms\Components\TextInput::make('parcelas')
+                    ->numeric()
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set) {
                         if($get('parcelas') != 1)
@@ -108,8 +110,10 @@ class ContasPagarResource extends Resource
                     ),
 
                 Forms\Components\TextInput::make('valor_parcela')
+                ->numeric()
                       ->required(),
-                Forms\Components\TextInput::make('valor_pago'),
+                Forms\Components\TextInput::make('valor_pago')
+                    ->numeric(),
                 Forms\Components\Textarea::make('obs')
                     ->label('Observações'),
             ]);

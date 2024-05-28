@@ -59,6 +59,7 @@ class CustoVeiculoResource extends Resource
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\TextInput::make('valor')
+                    ->numeric()
                     ->label('Valor Total')
                     ->required(),
             ]);
