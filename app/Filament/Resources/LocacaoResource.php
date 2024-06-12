@@ -14,6 +14,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -53,7 +54,7 @@ class LocacaoResource extends Resource
                                         '2xl' => 2,
                                     ])
                                     ->reactive()
-                                    ->required()
+                                    ->required(false)
                                     ->options(Cliente::all()->pluck('nome', 'id')->toArray())
                                     ->afterStateUpdated(function ($state, callable $set, Get $get) {
                                         $cliente = Cliente::find($state);
@@ -65,7 +66,7 @@ class LocacaoResource extends Resource
                                             ->send();
                                     }),
                                 Forms\Components\Select::make('veiculo_id')
-                                    ->required()
+                                    ->required(false)
                                     ->label('Veículo')
                                     ->relationship(
                                         name: 'veiculo',
@@ -80,10 +81,10 @@ class LocacaoResource extends Resource
                                 Forms\Components\DatePicker::make('data_saida')
                                     ->displayFormat('d/m/Y')
                                     ->label('Data Saída')
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TimePicker::make('hora_saida')
                                     ->label('Hora Saída')
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\DatePicker::make('data_retorno')
                                     ->displayFormat('d/m/Y')
                                     ->label('Data Retorno')
@@ -97,13 +98,13 @@ class LocacaoResource extends Resource
                                         $carro = Veiculo::find($get('veiculo_id'));
                                         $set('valor_total', ($carro->valor_diaria * $qtd_dias));
                                     })
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TimePicker::make('hora_retorno')
                                     ->label('Hora Retorno')
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TextInput::make('km_saida')
                                     ->label('Km Saída')
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TextInput::make('km_retorno')
                                     ->label('Km Retorno'),
 
@@ -115,20 +116,20 @@ class LocacaoResource extends Resource
                                     ->extraInputAttributes(['tabindex' => 1, 'style' => 'font-weight: bolder; font-size: 1rem; color: #CF9A16;'])
                                     ->label('Qtd Diárias')
                                     ->readOnly()
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TextInput::make('valor_total')
                                     ->extraInputAttributes(['tabindex' => 1, 'style' => 'font-weight: bolder; font-size: 1rem; color: #D33644;'])
                                     ->label('Valor Total')
                                     ->numeric()
                                     // ->currencyMask(thousandSeparator: '.',decimalSeparator: ',',precision: 2)
                                     ->readOnly()
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\TextInput::make('valor_desconto')
                                     ->extraInputAttributes(['tabindex' => 1, 'style' => 'font-weight: bolder; font-size: 1rem; color: #3668D3;'])
                                     ->label('Desconto')
                                     // ->numeric()
                                     ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2)
-                                    ->required()
+                                    ->required(false)
                                     // ->live(debounce: 500)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function ($state, callable $set, Get $get,) {
@@ -140,13 +141,113 @@ class LocacaoResource extends Resource
                                     // ->currencyMask(thousandSeparator: '.',decimalSeparator: ',',precision: 2)
                                     ->numeric()
                                     ->readOnly()
-                                    ->required(),
+                                    ->required(false),
                                 Forms\Components\Textarea::make('obs')
                                     ->autosize()
                                     ->columnSpanFull()
                                     ->label('Observações'),
                                 Forms\Components\Toggle::make('status')
                                     ->label('Finalizar Locação'),
+                                Fieldset::make('Financeiro')
+                                    ->schema([
+                                        Grid::make([
+                                            'xl' => 4,
+                                            '2xl' => 4,
+                                        ])
+                                            ->schema([
+                                                Forms\Components\Toggle::make('status_financeiro')
+                                                    ->live()
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->afterStateUpdated(
+                                                        function (Get $get, Set $set, $state) {
+                                                            if ($state == true) {
+                                                                $set('valor_total_financeiro', ((float)$get('valor_total_desconto')));
+                                                            } else {
+                                                                $set('valor_parcela_financeiro', 0);
+                                                                $set('parcelas_financeiro', ' ');
+                                                                $set('formaPgmto_financeiro', '');
+                                                                $set('valor_total_financeiro', 0);
+                                                            }
+                                                        }
+                                                    )
+                                                    ->columnSpan([
+                                                        'xl' => 2,
+                                                        '2xl' => 2,
+                                                    ])
+                                                    ->label('Desejar lançar no financeiro?'),
+                                                Forms\Components\Toggle::make('status_pago_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->live()
+                                                    ->afterStateUpdated(
+                                                        function (Get $get, Set $set, $state) {
+                                                            if ($state == true) {
+                                                                $set('parcelas_financeiro', 1);
+                                                                $set('valor_parcela_financeiro', ((float)$get('valor_total_desconto')));
+                                                            } else {
+                                                                $set('valor_parcela_financeiro', '');
+                                                                $set('parcelas_financeiro', ' ');
+                                                                $set('formaPgmto_financeiro', '');
+                                                            }
+                                                        }
+
+
+                                                    )
+                                                    ->label('Recebido'),
+                                                Forms\Components\TextInput::make('parcelas_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(
+                                                        function (Get $get, Set $set) {
+                                                            $set('valor_parcela_financeiro', ((float)($get('valor_total_financeiro') / $get('parcelas_financeiro'))));
+                                                        }
+                                                    )
+                                                    ->numeric()
+                                                    ->label('Qtd Parcelas')
+                                                    ->required(fn (Get $get): bool => $get('status_financeiro')),
+                                                Forms\Components\Select::make('formaPgmto_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->default(4)
+                                                    ->label('Forma de Pagamento')
+                                                    ->required(fn (Get $get): bool => $get('status_financeiro'))
+                                                    ->options([
+                                                        1 => 'Dinheiro',
+                                                        2 => 'Pix',
+                                                        3 => 'Cartão',
+                                                        4 => 'Boleto',
+                                                    ]),
+                                                Forms\Components\DatePicker::make('data_vencimento_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->required(fn (Get $get): bool => $get('status_financeiro'))
+                                                    ->displayFormat('d/m/Y')
+                                                    ->default(Carbon::now())
+                                                    ->label("Vencimento da 1º"),
+
+                                                Forms\Components\TextInput::make('valor_parcela_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->numeric()
+                                                    ->label('Valor da Parcela')
+                                                    ->readOnly()
+                                                    ->required(false),
+                                                Forms\Components\TextInput::make('valor_total_financeiro')
+                                                    ->hidden(fn (Get $get): bool => !$get('status_financeiro'))
+                                                    ->disabled(fn (string $context): bool => $context === 'edit')
+                                                    ->default(function (Get $get) {
+                                                        return 200;
+                                                    })
+                                                    ->numeric()
+                                                    ->label('Valor Total')
+                                                    ->readOnly()
+                                                    ->required(false),
+                                            ])
+
+
+                                    ])
+
 
                             ]),
                     ]),
@@ -157,6 +258,10 @@ class LocacaoResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable()
+                    ->label('ID'),
                 Tables\Columns\TextColumn::make('cliente.nome')
                     ->sortable()
                     ->searchable()
