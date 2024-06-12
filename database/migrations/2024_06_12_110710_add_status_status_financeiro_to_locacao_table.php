@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('locacaos', function (Blueprint $table) {
-            $table->boolean('status_financeiro');
-            $table->boolean('status_pago_financeiro');
-            $table->string('parcelas_financeiro');
-            $table->string('formaPgmto_financeiro');
-            $table->decimal('valor_parcela_financeiro',10,2);
-            $table->decimal('valor_total_financeiro',10,2);
-            $table->date('data_vencimento_financeiro');
+            $table->boolean('status_financeiro')->nullable();
+            $table->boolean('status_pago_financeiro')->nullable();
+            $table->string('parcelas_financeiro')->nullable();
+            $table->string('formaPgmto_financeiro')->nullable();
+            $table->decimal('valor_parcela_financeiro',10,2)->nullable();
+            $table->decimal('valor_total_financeiro',10,2)->nullable();
+            $table->date('data_vencimento_financeiro')->nullable();
 
 
         });
