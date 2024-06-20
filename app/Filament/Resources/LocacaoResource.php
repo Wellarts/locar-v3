@@ -97,6 +97,7 @@ class LocacaoResource extends Resource
 
                                         $carro = Veiculo::find($get('veiculo_id'));
                                         $set('valor_total', ($carro->valor_diaria * $qtd_dias));
+                                        $set('valor_desconto', '');
                                     })
                                     ->required(false),
                                 Forms\Components\TimePicker::make('hora_retorno')
@@ -129,7 +130,7 @@ class LocacaoResource extends Resource
                                     ->label('Desconto')
                                     // ->numeric()
                                     ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 2)
-                                    ->required(false)
+                                    ->required(true)
                                     // ->live(debounce: 500)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function ($state, callable $set, Get $get,) {
