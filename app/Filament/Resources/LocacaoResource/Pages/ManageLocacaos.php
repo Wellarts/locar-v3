@@ -44,20 +44,22 @@ class ManageLocacaos extends ManageRecords
                             $valor_parcela = ($record->valor_total_financeiro / $record->parcelas_financeiro);
                             $vencimentos = Carbon::create($record->data_vencimento_financeiro);
                             for ($cont = 0; $cont < $data['parcelas_financeiro']; $cont++) {
-                                $dataVencimentos = $vencimentos->addDays(7);
+                              //  $dataVencimentos = $vencimentos->addDays(7);
                                 $parcelas = [
                                     'cliente_id' => $data['cliente_id'],
                                     'valor_total' => $data['valor_total_financeiro'],
                                     'parcelas' => $data['parcelas_financeiro'],
                                     'formaPgmto' => $data['formaPgmto_financeiro'],
                                     'ordem_parcela' => $cont + 1,
-                                    'data_vencimento' => $dataVencimentos,
+                                    'data_vencimento' => $vencimentos,
                                     'valor_recebido' => 0.00,
                                     'status' => 0,
                                     'obs' => 'Parcela referente a locação nº: '.$record->id.'',
                                     'valor_parcela' => $valor_parcela,
+                                   
                                 ];
                                 ContasReceber::create($parcelas);
+                                $vencimentos = $vencimentos->addDays(7);
                             }
                         } elseif ($record->status_financeiro == true and $record->status_pago_financeiro == true) {
 
