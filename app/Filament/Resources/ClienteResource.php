@@ -36,6 +36,7 @@ class ClienteResource extends Resource
                 ])
                     ->schema([
                 Forms\Components\TextInput::make('nome')
+                    ->label('Nome')
                     ->columnSpan([
                         'xl' => 2,
                         '2xl' => 2,
