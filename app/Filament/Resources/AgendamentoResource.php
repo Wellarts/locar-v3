@@ -32,7 +32,7 @@ class AgendamentoResource extends Resource
     {
         return $form
             ->schema([
-                Fieldset::make('Dados do Agendamento2')
+                Fieldset::make('Dados do Agendamento')
                     ->schema([
                         Grid::make([
                             'xl' => 4,
