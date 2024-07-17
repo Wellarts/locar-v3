@@ -90,17 +90,6 @@ class ManageLocacaos extends ManageRecords
                 ),
 
 
-
-
-
-
-
-
-
-
-
-
-
         ];
     }
 }
