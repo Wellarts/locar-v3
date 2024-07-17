@@ -259,6 +259,7 @@ class LocacaoResource extends Resource
 
                             ]),
                     ]),
+                    
                 Fieldset::make('Ocorrências da Locação')
                     ->schema([
                         Repeater::make('ocorrencia')
