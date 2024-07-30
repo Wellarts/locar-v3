@@ -262,14 +262,15 @@ class LocacaoResource extends Resource
                     
                 Fieldset::make('Ocorrências da Locação')
                     ->schema([
+                        Grid::make([
+                            'xl' => 3,
+                            '2xl' => 3,
+                        ])
+                            ->schema([
                         Repeater::make('ocorrencia')
                             ->label('Ocorrências')
                             ->schema([
-                                Grid::make([
-                                    'xl' => 3,
-                                    '2xl' => 3,
-                                ])
-                                    ->schema([
+                                
                                 Select::make('tipo')
                                     ->options([
                                         'multa' => 'Multa',
@@ -293,10 +294,9 @@ class LocacaoResource extends Resource
                                     ->grouped()
 
 
-                                    ])
+                                    ])->columnSpanFull()->addActionLabel('Novo')
                             ])
-                            ->columnSpanFull()
-                            ->addActionLabel('Novo')
+                            
                     ]),
                 Forms\Components\Toggle::make('status')
                     ->label('Finalizar Locação'),
