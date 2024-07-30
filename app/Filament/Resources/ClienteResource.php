@@ -91,7 +91,8 @@ class ClienteResource extends Resource
                     ->label('Rede Social'),
                 Forms\Components\TextInput::make('cnh')
                         ->label('CNH'),
-                Forms\Components\DatePicker::make('validade_cnh')
+                Forms\Components\TextInput::make('validade_cnh')
+                        ->type('date')
                        // ->format('d/m/Y')
                         ->label('Valiade da CNH'),
                 Forms\Components\TextInput::make('rg')
