@@ -266,6 +266,7 @@ class LocacaoResource extends Resource
                             ->label('Ocorrências')
                             ->schema([
                                 Grid::make([
+                                    'sm' => 1,
                                     'xl' => 3,
                                     '2xl' => 3,
                                 ])
