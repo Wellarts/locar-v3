@@ -262,15 +262,15 @@ class LocacaoResource extends Resource
                     
                 Fieldset::make('Ocorrências da Locação')
                     ->schema([
-                        Repeater::make('ocorrencia')
-                            ->label('Ocorrênciass')
+                        Grid::make([
+                            'xl' => 3,
+                            '2xl' => 3,
+                        ])
                             ->schema([
-                                Grid::make([
-                                    'sm' => 1,
-                                    'xl' => 3,
-                                    '2xl' => 3,
-                                ])
-                                    ->schema([
+                        Repeater::make('ocorrencia')
+                            ->label('Ocorrências')
+                            ->schema([
+                                
                                 Select::make('tipo')
                                     ->options([
                                         'multa' => 'Multa',
