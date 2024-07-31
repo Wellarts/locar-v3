@@ -122,19 +122,19 @@ class ClienteResource extends Resource
                                 return Carbon::parse($dt)->format('Y-m-d');                                                          
                             })
                            ->label('Data de Nascimento'), */
-                           Forms\Components\TextInput::make('data_nascimento')
+                           Forms\Components\DatePicker::make('data_nascimento')
                            ->extraTriggerAttributes([
-                            'x-init' => <<<'JS'
-                                const input = $refs.button?.querySelector("input");
-                                input?.removeAttribute("readonly");
-                                input?.setAttribute("x-mask", "99/99/9999");
-                                input?.addEventListener("input", function (e) {
-                                    const state = e.target.value;
-                                    if(state.length < 10)  return;                                                    
-                                    setState(dayjs(state));
-                                });
-                            JS,
-                        ])
+                                    'x-init' => <<<'JS'
+                                        const input = $refs.button?.querySelector("input");
+                                        input?.removeAttribute("readonly");
+                                        input?.setAttribute("x-mask", "99/99/9999");
+                                        input?.addEventListener("input", function (e) {
+                                            const state = e.target.value;
+                                            if(state.length < 10)  return;                                                    
+                                            setState(dayjs(state));
+                                        });
+                                    JS,
+                                 ])
 
                     ])
             ]);
