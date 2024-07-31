@@ -114,14 +114,28 @@ class ClienteResource extends Resource
                             ->downloadable()
                             ->label('Foto CNH'),
 
-                        Forms\Components\TextInput::make('data_nascimento')
+                      /*  Forms\Components\TextInput::make('data_nascimento')
                             ->mask('99/99/9999')
                             ->formatStateUsing( fn ($state) => Carbon::parse($state)->format('d/m/Y'))
                             ->dehydrateStateUsing(function ($state) {
                                 $dt = Str::replace('/', '-', $state);
                                 return Carbon::parse($dt)->format('Y-m-d');                                                          
                             })
-                           ->label('Data de Nascimento'),
+                           ->label('Data de Nascimento'), */
+                           Forms\Components\TextInput::make('data_nascimento')
+                           ->extraTriggerAttributes([
+                            'x-init' => <<<'JS'
+                                const input = $refs.button?.querySelector("input");
+                                input?.removeAttribute("readonly");
+                                input?.setAttribute("x-mask", "99/99/9999");
+                                input?.addEventListener("input", function (e) {
+                                    const state = e.target.value;
+                                    if(state.length < 10)  return;                                                    
+                                    setState(dayjs(state));
+                                });
+                            JS,
+                        ])
+
                     ])
             ]);
     }
