@@ -116,6 +116,7 @@ class ClienteResource extends Resource
 
                         Forms\Components\TextInput::make('data_nascimento')
                             ->mask('99/99/9999')
+                            ->default('')
                             ->formatStateUsing( fn ($state) => Carbon::parse($state)->format('d/m/Y'))
                             ->dehydrateStateUsing(function ($state) {
                                 $dt = Str::replace('/', '-', $state);
