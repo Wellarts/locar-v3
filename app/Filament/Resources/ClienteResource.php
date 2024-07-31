@@ -92,8 +92,8 @@ class ClienteResource extends Resource
                 Forms\Components\TextInput::make('cnh')
                         ->label('CNH'),
                 Forms\Components\TextInput::make('validade_cnh')
-                        ->type('date')
-                       // ->format('d/m/Y')
+                        ->mask('99/99/9999')
+                        ->maxLength(10)
                         ->label('Valiade da CNH'),
                 Forms\Components\TextInput::make('rg')
                         ->label('RG'),
