@@ -18,7 +18,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use App\Helpers\DataHelper; 
+
 
 
 class ClienteResource extends Resource
@@ -116,18 +116,18 @@ class ClienteResource extends Resource
 
                         Forms\Components\TextInput::make('data_nascimento')
                             ->mask('99/99/9999')
-                          
-                          ->formatStateUsing(function($state, $context) {
-                                if($context == 'edit') {
-                                   return  Carbon::parse($state)->format('d/m/Y');
+                            ->label('Data de Nascimento')
+                            ->formatStateUsing(function ($state, $context) {
+                                if ($context == 'edit') {
+                                    return  Carbon::parse($state)->format('d/m/Y');
                                 }
-                          })
+                            })
                             ->dehydrateStateUsing(function ($state) {
                                 $dt = Str::replace('/', '-', $state);
-                                return Carbon::parse($dt)->format('Y-m-d');                                                          
-                            })
-                           ->label('Data de Nascimento'), 
-                           
+                                return Carbon::parse($dt)->format('Y-m-d');
+                            }),
+
+
 
                     ])
             ]);
