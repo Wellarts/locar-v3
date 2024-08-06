@@ -52,7 +52,8 @@ class AdminPanelProvider extends PanelProvider
                 LocacaoMes::class,
                 ContasReceberHoje::class,
                 ContasPagarHoje::class,
-                StatsVeiculos::class,
+                
+                StatsVeiculos::class, 
             ])
             ->middleware([
                 EncryptCookies::class,
