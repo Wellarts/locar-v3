@@ -20,7 +20,7 @@ class SomatorioLocacao extends BaseWidget
         $dia = date('d');
         // dd($ano);
         return [
-            Stat::make('Total de Locaçõesssss', number_format(Locacao::all()->sum('valor_total_desconto'), 2, ",", "."))
+            Stat::make('Total de Locações', number_format(Locacao::all()->sum('valor_total_desconto'), 2, ",", "."))
                 ->description('Todo Perído')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
