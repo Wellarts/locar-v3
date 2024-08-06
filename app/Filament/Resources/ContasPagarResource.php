@@ -45,7 +45,6 @@ class ContasPagarResource extends Resource
                     ->numeric()
                     ->required(),
                 Forms\Components\TextInput::make('parcelas')
-                    ->numeric()
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set) {
                         if($get('parcelas') != 1)
@@ -110,10 +109,10 @@ class ContasPagarResource extends Resource
                     ),
 
                 Forms\Components\TextInput::make('valor_parcela')
-                ->numeric()
+                      ->numeric()
                       ->required(),
                 Forms\Components\TextInput::make('valor_pago')
-                    ->numeric(),
+                      ->numeric(),
                 Forms\Components\Textarea::make('obs')
                     ->label('Observações'),
             ]);
@@ -133,7 +132,7 @@ class ContasPagarResource extends Resource
                         ->sortable()
                         ->alignCenter()
                         ->color('danger')
-                        ->date(),
+                        ->date('d/m/Y'),
                     Tables\Columns\TextColumn::make('valor_total')
                          ->badge()
                         ->alignCenter()
@@ -167,7 +166,7 @@ class ContasPagarResource extends Resource
                         ->alignCenter()
                         ->badge()
                         ->color('warning')
-                        ->date(),
+                        ->date('d/m/Y'),
                     Tables\Columns\TextColumn::make('created_at')
                         ->dateTime()
                         ->sortable()
@@ -198,7 +197,7 @@ class ContasPagarResource extends Resource
                     ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->modalHeading('Editar conta a pagar')
+                    ->modalHeading('Editar conta a pagar')
                 ->after(function ($data, $record) {
 
                     if($record->status = 1)

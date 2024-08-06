@@ -117,7 +117,7 @@ class ContasReceberResource extends Resource
                       ->numeric()
                       ->required(),
                 Forms\Components\TextInput::make('valor_recebido')
-                      ->numeric(),
+                       ->numeric(),
                 Forms\Components\Textarea::make('obs')
                     ->label('Observações'),
             ]);
@@ -126,7 +126,7 @@ class ContasReceberResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-           ->columns([
+            ->columns([
                 Tables\Columns\TextColumn::make('cliente.nome')
                 ->sortable()
                 ->searchable(),
@@ -134,11 +134,11 @@ class ContasReceberResource extends Resource
                 ->alignCenter()
                 ->label('Parcela Nº'),
             Tables\Columns\TextColumn::make('data_vencimento')
+                ->date('d/m/Y')
                 ->sortable()
                 ->alignCenter()
                 ->badge()
-                ->color('danger')
-                ->date(),
+                ->color('danger'),
             Tables\Columns\TextColumn::make('valor_total')
                 ->alignCenter()
                 ->badge()
@@ -173,11 +173,11 @@ class ContasReceberResource extends Resource
                 ->color('warning')
                 ->money('BRL'),
             Tables\Columns\TextColumn::make('data_recebimento')
+                ->date('d/m/Y')
                 ->alignCenter()
                 ->badge()
-                ->color('warning')
-                ->date(),
-                Tables\Columns\TextColumn::make('created_at')
+                ->color('warning'),
+            Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -207,7 +207,7 @@ class ContasReceberResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->modalHeading('Editar conta a receber')
+                 ->modalHeading('Editar conta a receber')
                 ->after(function ($data, $record) {
 
                     if($record->status == true)

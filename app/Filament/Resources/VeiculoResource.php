@@ -12,6 +12,7 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -55,6 +56,7 @@ class VeiculoResource extends Resource
                                 Forms\Components\TextInput::make('chassi')
                                 ->label('Nº do Chassi'),
                                 Forms\Components\TextInput::make('valor_diaria')
+                                    ->live(onBlur: true)
                                     ->label('Valor Diária')
                                     ->numeric(),
                             ]),
@@ -104,6 +106,7 @@ class VeiculoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('modelo')
@@ -132,7 +135,10 @@ class VeiculoResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('Ativos')
+                ->query(fn (Builder $query): Builder => $query->where('status',true)),
+                Filter::make('Inativos')
+                ->query(fn (Builder $query): Builder => $query->where('status',false)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
