@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class SomatorioLocacao extends BaseWidget
 {
-
     protected static ?int $sort = 1;
 
     protected function getCards(): array

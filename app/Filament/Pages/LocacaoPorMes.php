@@ -12,16 +12,15 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Columns\Summarizers\Sum;
-use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
-
 class LocacaoPorMes extends Page implements HasTable
 {
+    #teste
     use InteractsWithTable;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -32,47 +31,47 @@ class LocacaoPorMes extends Page implements HasTable
 
     protected static ?string $title = 'Faturamento Mensal';
 
-  /*  public static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
         {
-            return false;
- } */
-
-    public function mount()
-    {
-        Temp_lucratividade::truncate();
-
-        $Locacoes = Locacao::all();
-
-        foreach($Locacoes as $Locacao){
-
-            $valorLocacaoDia = ($Locacao->valor_total_desconto / $Locacao->qtd_diarias);
-
-           // dd($valorLocacaoDia);
-            $dataDiarias = Carbon::create($Locacao->data_saida)->addDay(1);
-                for($x=1;$x<=$Locacao->qtd_diarias;$x++){
-
-                    $addLocacaoDia = [
-                        'cliente_id'  => $Locacao->cliente_id,
-                        'veiculo_id'  => $Locacao->veiculo_id,
-                        'data_saida'  => $dataDiarias,
-                        'qtd_diaria'  => 1,
-                        'valor_diaria'  => $valorLocacaoDia,
-                    ];
-
-                    Temp_lucratividade::create($addLocacaoDia);
-                    $dataDiarias = Carbon::create($dataDiarias)->addDay(1);
-                }
+            return true;
         }
 
+        public function mount()
+        {
+            Temp_lucratividade::truncate();
 
-    }
+            $Locacoes = Locacao::all();
+
+            foreach($Locacoes as $Locacao){
+
+                $valorLocacaoDia = ($Locacao->valor_total_desconto / $Locacao->qtd_diarias);
+
+               // dd($valorLocacaoDia);
+                $dataDiarias = Carbon::create($Locacao->data_saida)->addDay(1);
+                    for($x=1;$x<=$Locacao->qtd_diarias;$x++){
+
+                        $addLocacaoDia = [
+                            'cliente_id'  => $Locacao->cliente_id,
+                            'veiculo_id'  => $Locacao->veiculo_id,
+                            'data_saida'  => $dataDiarias,
+                            'qtd_diaria'  => 1,
+                            'valor_diaria'  => $valorLocacaoDia,
+                        ];
+
+                        Temp_lucratividade::create($addLocacaoDia);
+                        $dataDiarias = Carbon::create($dataDiarias)->addDay(1);
+                    }
+            }
+
+
+        }
 
     public function table(Table $table): Table
     {
         return $table
-        ->description('Esta consulta divide as locações pela quantidade de diárias e coloca cada diária da locação
-        na data dos dias em sequência a partir da data da saída, assim teremos o valor da diária por data da utilização do véiculo.')
             ->query(Temp_lucratividade::query())
+            ->description('Esta consulta divide as locações pela quantidade de diárias e coloca cada diária da locação
+        na data dos dias em sequência a partir da data da saída, assim teremos o valor da diária por data da utilização do véiculo.')
           //  ->defaultGroup('data_venda','year')
             ->columns([
                             TextColumn::make('cliente.nome')

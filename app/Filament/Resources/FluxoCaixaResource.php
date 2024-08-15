@@ -71,7 +71,7 @@ class FluxoCaixaResource extends Resource
                     ->label('Data Hora')
                     ->dateTime()
                     ->sortable(),
-                  //  ->toggleable(isToggledHiddenByDefault: true),
+                   // ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

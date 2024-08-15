@@ -41,7 +41,6 @@ class Locacao extends Model
     protected $casts = [
         'ocorrencia' => 'array',
     ];
-
     public function Cliente()
     {
         return $this->belongsTo(Cliente::class);

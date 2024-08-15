@@ -21,7 +21,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Number::useLocale('pt_BR');
-        
-
     }
 }
