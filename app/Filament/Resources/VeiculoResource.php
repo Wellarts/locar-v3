@@ -111,8 +111,8 @@ class VeiculoResource extends Resource
 
                             ])
                             ->colors([
-                                '0' => 'success',
-                                '1' => 'danger',
+                                '1' => 'success',
+                                '0' => 'danger',
                             ])
                             ->inline()
                             ->default(0)
