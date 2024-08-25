@@ -106,8 +106,8 @@ class VeiculoResource extends Resource
                             ]),
                         Forms\Components\ToggleButtons::make('status')
                             ->options([
-                                '0' => 'Ativado',
-                                '1' => 'Desativado',
+                                '1' => 'Ativado',
+                                '0' => 'Desativado',
 
                             ])
                             ->colors([
