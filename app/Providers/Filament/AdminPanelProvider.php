@@ -51,11 +51,11 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
              //   Widgets\FilamentInfoWidget::class,
-                SomatorioLocacao::class,
-                LocacaoMes::class,
-                ContasReceberHoje::class,
-                ContasPagarHoje::class,
-                StatsVeiculo::class,
+                // SomatorioLocacao::class,
+                // LocacaoMes::class,
+                // ContasReceberHoje::class,
+                // ContasPagarHoje::class,
+                // StatsVeiculo::class,
             ])
             ->middleware([
                 EncryptCookies::class,
