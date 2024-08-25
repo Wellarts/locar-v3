@@ -87,13 +87,13 @@ class VeiculoResource extends Resource
                                         ->columnSpanFull()
                                         ->default(0)
                                         ->options([
-                                            '0' => 'Desativado',
                                             '1' => 'Ativado',
+                                            '0' => 'Desativado',
 
                                         ])
                                         ->colors([
-                                            '0' => 'danger',
                                             '1' => 'success',
+                                            '0' => 'danger',
                                         ])
                                         ->inline()
                                         ->default(0)
