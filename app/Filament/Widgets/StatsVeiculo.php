@@ -10,7 +10,7 @@ class StatsVeiculo extends BaseWidget
 {
     protected function getStats(): array
     {
-        
+
         return [
             Stat::make('Veículos Ativos', Veiculo::where('status','=',1)->count())
                 ->description('Ativos')

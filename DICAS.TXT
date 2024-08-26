@@ -1,0 +1,4 @@
+cp locar-v3\app\Filament\Resources\LocacaoResource.php locar-lucena\app\Filament\Resources\LocacaoResource.php
+cp locar-v3\app\Filament\Resources\VeiculoResource.php locar-lucena\app\Filament\Resources\VeiculoResource.php
+cp locar-v3\app\Filament\Widgets\VeiculoChegando.php locar-lucena\app\Filament\Widgets\VeiculoChegando.php
+cp locar-v3\app\Filament\Widgets\VeiculoDisponivel.php locar-lucena\app\Filament\Widgets\VeiculoDisponivel.php
