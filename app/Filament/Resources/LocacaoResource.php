@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Laravel\SerializableClosure\Serializers\Native;
 use Leandrocfe\FilamentPtbrFormFields\Money;
 use Illuminate\Support\Str;
+use Saade\FilamentAutograph\Forms\Components\SignaturePad;
 
 class LocacaoResource extends Resource
 {
@@ -281,6 +282,12 @@ class LocacaoResource extends Resource
                                     ->autosize()
                                     ->columnSpanFull()
                                     ->label('Observações'),
+                                    
+
+                                    SignaturePad::make('signature'),
+                                       
+                                  
+                                    
 
                                 Fieldset::make('Financeiro')
                                     ->schema([
