@@ -44,7 +44,7 @@ class Contrato extends Controller
                                                         'cpfCnpj',
                                                         'tel_1',
                                                         'tel_2']))->stream()
-                                                        ->header('Content-Type', 'image/jpeg');
+                                                        ->header('Content-Type', 'image/png');
        // return view('pdf.contrato', compact(['locacao']));
 
 
