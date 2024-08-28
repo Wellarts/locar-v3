@@ -49,7 +49,7 @@
 
     }
 </style>
-
+->header('Content-Type', 'image/jpeg');
 </head>
 <body>
 
@@ -396,7 +396,7 @@
 
             
             
-            {{ header("Content-type: image/jpeg") $locacao->assinatura_contrato}}
+            {{$locacao->assinatura_contrato}}
             ___________________________________________________________<br>
             LOCATÁRIO: {{$locacao->Cliente->nome}}<br><Br><br><br>
 
