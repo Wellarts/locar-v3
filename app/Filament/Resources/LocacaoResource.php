@@ -284,7 +284,7 @@ class LocacaoResource extends Resource
                                     ->label('Observações'),
                                     
 
-                                    SignaturePad::make('signature'),
+                                    SignaturePad::make('assinatura_contrato'),
                                        
                                   
                                     
