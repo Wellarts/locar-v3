@@ -43,8 +43,8 @@ class Contrato extends Controller
                                                         'dataAtual',
                                                         'cpfCnpj',
                                                         'tel_1',
-                                                        'tel_2']))->stream()
-                                                        ->header('Content-Type', 'image/png');
+                                                        'tel_2']))->stream();
+                                                       // ->header('Content-Type', 'image/png');
        // return view('pdf.contrato', compact(['locacao']));
 
 
