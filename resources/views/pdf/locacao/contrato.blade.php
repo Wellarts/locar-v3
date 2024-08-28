@@ -395,7 +395,7 @@
         <div style="text-align: center; font-size: 12">Rio de Janeiro, {{ $dataAtual->isoFormat('DD MMMM YYYY') }}<br><br><br><br>
 
             <?php
-               '<img src = "data:image/png;base64,' . base64_encode({{$locacao->assinatura_contrato}}) . '" width = "50px" height = "50px"/>' 
+               '<img src = "data:image/png;base64,' . base64_encode($locacao->assinatura_contrato) . '" width = "50px" height = "50px"/>' 
              ?>  
             
             {{$locacao->assinatura_contrato}}
