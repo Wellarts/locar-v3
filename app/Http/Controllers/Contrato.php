@@ -46,7 +46,7 @@ class Contrato extends Controller
         //                                                 'tel_2']))
         //                                                 ->stream();
                                                         
-        return view('pdf.contrato', compact(['locacao',
+        return view('pdf.locacao.contrato', compact(['locacao',
                                             'dataAtual',
                                             'cpfCnpj',
                                             'tel_1',
