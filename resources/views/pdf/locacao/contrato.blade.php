@@ -393,7 +393,7 @@
 
         <div style="text-align: center; font-size: 12">Rio de Janeiro, {{ $dataAtual->isoFormat('DD MMMM YYYY') }}<br><br><br><br>
 
-            <img src="{{$locacao->assinatura_contrato}}" height="60" width="180">
+            <img src="{{$locacao->assinatura_contrato}}" height="60" width="180"><br>
             
             
             ___________________________________________________________<br>
