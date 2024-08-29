@@ -284,7 +284,11 @@ class LocacaoResource extends Resource
                                     ->label('Observações'),
                                     
 
-                                    SignaturePad::make('assinatura_contrato'),
+                                    SignaturePad::make('assinatura_contrato')
+                                        ->backgroundColor('rgba(0,0,0,0)')
+                                        ->backgroundColorOnDark('#f0a')
+                                        ->penColor('#000') 
+                                        ->penColorOnDark('#fff'),
                                        
                                   
                                     
