@@ -39,18 +39,18 @@ class Contrato extends Controller
 
 
 
-        //  return pdf::loadView('pdf.locacao.contrato', compact(['locacao',
-        //                                                 'dataAtual',
-        //                                                 'cpfCnpj',
-        //                                                 'tel_1',
-        //                                                 'tel_2']))
-        //                                                 ->stream();
+         return pdf::loadView('pdf.locacao.contrato', compact(['locacao',
+                                                        'dataAtual',
+                                                        'cpfCnpj',
+                                                        'tel_1',
+                                                        'tel_2']))
+                                                        ->stream();
                                                         
-        return view('pdf.locacao.contrato', compact(['locacao',
-                                            'dataAtual',
-                                            'cpfCnpj',
-                                            'tel_1',
-                                            'tel_2']));
+        // return view('pdf.locacao.contrato', compact(['locacao',
+        //                                     'dataAtual',
+        //                                     'cpfCnpj',
+        //                                     'tel_1',
+        //                                     'tel_2']));
 
 
     }

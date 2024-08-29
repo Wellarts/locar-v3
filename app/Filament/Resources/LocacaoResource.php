@@ -285,8 +285,9 @@ class LocacaoResource extends Resource
                                     
 
                                     SignaturePad::make('assinatura_contrato')
-                                        ->backgroundColor('#DCDCDC')
-                                        ->backgroundColorOnDark('#DCDCDC')
+                                        ->label('Assinatura do Contrato')
+                                        ->backgroundColor('#FFFFFF')
+                                        ->backgroundColorOnDark('#FFFFFF')
                                         ->penColor('#1C1C1C') 
                                         ->penColorOnDark('#1C1C1C'),
                                        
