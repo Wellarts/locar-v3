@@ -157,7 +157,7 @@ class Dashboard extends \Filament\Pages\Dashboard
         foreach ($contasReceberVencer as $cr) {
             $hoje = Carbon::today();
             $dataVencimento = Carbon::parse($cr->data_vencimento);
-            $qtd_dias = $hoje->diffInDays($cr->data_vencimento, false);
+            $qtd_dias = $hoje->diffInDays($dataVencimento, false);
             if ($qtd_dias <= 3 && $qtd_dias >= 0) {
 
                 Notification::make()
