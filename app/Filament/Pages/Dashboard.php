@@ -2,7 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\ContasPagar;
+use App\Models\ContasReceber;
 use App\Models\Veiculo;
+use Carbon\Carbon;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 use Filament\Facades\Filament;
@@ -101,18 +104,18 @@ class Dashboard extends \Filament\Pages\Dashboard
     public function mount(): void
     {
 
-      //  $dados = new LocacaoPorMes();
-      //  $dados->mount();
+        //  $dados = new LocacaoPorMes();
+        //  $dados->mount();
 
         $veiculos = Veiculo::all();
 
         foreach ($veiculos as $veiculo) {
             if ($veiculo->status_alerta == 1 and $veiculo->status == 1) {
-                  //  dd(($veiculo->prox_troca_oleo - $veiculo->km_atual));
-                  
+                //  dd(($veiculo->prox_troca_oleo - $veiculo->km_atual));
+
                 if (($veiculo->prox_troca_oleo - $veiculo->km_atual) <= $veiculo->aviso_troca_oleo) {
                     Notification::make()
-                        ->title('ATENÇÃO: Veículos com troca de óleo próxima. Faltam '.$veiculo->prox_troca_oleo - $veiculo->km_atual.' Km.')
+                        ->title('ATENÇÃO: Veículos com troca de óleo próxima. Faltam ' . $veiculo->prox_troca_oleo - $veiculo->km_atual . ' Km.')
                         ->body('Veiculo: ' . $veiculo->modelo . ' Placa: ' . $veiculo->placa)
                         ->danger()
                         //->persistent()
@@ -121,7 +124,7 @@ class Dashboard extends \Filament\Pages\Dashboard
 
                 if (($veiculo->prox_troca_filtro - $veiculo->km_atual) <= $veiculo->aviso_troca_filtro) {
                     Notification::make()
-                        ->title('ATENÇÃO: Veículos com troca do filtro próxima.  Faltam '.$veiculo->prox_troca_filtro - $veiculo->km_atual.' Km.')
+                        ->title('ATENÇÃO: Veículos com troca do filtro próxima.  Faltam ' . $veiculo->prox_troca_filtro - $veiculo->km_atual . ' Km.')
                         ->body('Veiculo: ' . $veiculo->modelo . ' Placa: ' . $veiculo->placa)
                         ->danger()
                         //->persistent()
@@ -130,7 +133,7 @@ class Dashboard extends \Filament\Pages\Dashboard
 
                 if (($veiculo->prox_troca_correia - $veiculo->km_atual) <= $veiculo->aviso_troca_correia) {
                     Notification::make()
-                        ->title('ATENÇÃO: Veículos com troca da correia próxima.  Faltam '.$veiculo->prox_troca_correia - $veiculo->km_atual.' Km.')
+                        ->title('ATENÇÃO: Veículos com troca da correia próxima.  Faltam ' . $veiculo->prox_troca_correia - $veiculo->km_atual . ' Km.')
                         ->body('Veiculo: ' . $veiculo->modelo . ' Placa: ' . $veiculo->placa)
                         ->danger()
                         //->persistent()
@@ -139,12 +142,32 @@ class Dashboard extends \Filament\Pages\Dashboard
 
                 if (($veiculo->prox_troca_pastilha - $veiculo->km_atual) <= $veiculo->aviso_troca_pastilha) {
                     Notification::make()
-                        ->title('ATENÇÃO: Veículos com troca da pastilha próxima.  Faltam '.$veiculo->prox_troca_pastilha - $veiculo->km_atual.' Km.')
+                        ->title('ATENÇÃO: Veículos com troca da pastilha próxima.  Faltam ' . $veiculo->prox_troca_pastilha - $veiculo->km_atual . ' Km.')
                         ->body('Veiculo: ' . $veiculo->modelo . ' Placa: ' . $veiculo->placa)
                         ->danger()
                         //->persistent()
                         ->send();
                 }
+            }
+        }
+
+        $contasReceberVencer = ContasReceber::all();
+        $hoje = Carbon::today();
+
+        foreach ($contasReceberVencer as $cr) {
+            $hoje = Carbon::today();
+            $dataVencimento = Carbon::parse($cr->data_vencimento);
+            $qtd_dias = $hoje->diffInDays($cr->data_vencimento, false);
+            if ($qtd_dias <= 3 && $qtd_dias >= 0) {
+
+                Notification::make()
+                    ->title('ATENÇÃO: Contas a receber próxima.')
+                    ->body('Do Cliente ' . $cr->cliente->nome. ' no valor de ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d-m-Y').'.')
+                    ->success()
+                    //->persistent()
+                    ->send();
+
+
             }
         }
     }
