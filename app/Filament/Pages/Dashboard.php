@@ -162,7 +162,7 @@ class Dashboard extends \Filament\Pages\Dashboard
             if ($qtd_dias <= 3 && $qtd_dias >= 0) {
                 Notification::make()
                     ->title('ATENÇÃO: Conta a receber com vencimento próximo.')
-                    ->body('Do cliente ' . $cr->cliente->nome. ' no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
                     ->success()
                     //->persistent()
                     ->send();
@@ -172,7 +172,7 @@ class Dashboard extends \Filament\Pages\Dashboard
             if ($qtd_dias == 0) {
                 Notification::make()
                     ->title('ATENÇÃO: Conta a receber com vencimento para hoje.')
-                    ->body('Do cliente ' . $cr->cliente->nome. ' no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
                     ->warning()
                     ->persistent()
                     ->send();
@@ -182,7 +182,7 @@ class Dashboard extends \Filament\Pages\Dashboard
             if ($qtd_dias < 0) {
                 Notification::make()
                     ->title('ATENÇÃO: Conta a receber vencida.')
-                    ->body('Do cliente ' . $cr->cliente->nome. ' no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
                     ->danger()
                     ->persistent()
                     ->send();
