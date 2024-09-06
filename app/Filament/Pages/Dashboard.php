@@ -182,7 +182,7 @@ class Dashboard extends \Filament\Pages\Dashboard
             if ($qtd_dias < 0) {
                 Notification::make()
                     ->title('ATENÇÃO: Conta a receber vencida.')
-                  //  ->body('Do cliente ' . $cr->cliente->nome. ' no valor de ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
+                    ->body('Do cliente ' . $cr->cliente->nome. ' no valor de ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d/m/Y').'.')
                     ->danger()
                     ->persistent()
                     ->send();
