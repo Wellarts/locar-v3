@@ -152,7 +152,7 @@ class Dashboard extends \Filament\Pages\Dashboard
         }
         //***********NOTIFICAÇÃO DE CONTAS A RECEBER*************
         $contasReceberVencer = ContasReceber::where('status','=','0')->get();
-       // dd($contasReceberVencer);
+        dd($contasReceberVencer);
         $hoje = Carbon::today();
 
         foreach ($contasReceberVencer as $cr) {
