@@ -54,6 +54,7 @@ class ContasReceberResource extends Resource
                         '15' => 'Quinzenal',
                         '30' => 'Mensal',
                     ])
+                    ->default(7)
                     ->label('Próximas Parcelas'),
                 Forms\Components\TextInput::make('parcelas')
                     ->hiddenOn('edit')
