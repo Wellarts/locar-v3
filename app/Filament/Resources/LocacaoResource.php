@@ -167,7 +167,7 @@ class LocacaoResource extends Resource
 
 
                                             ])
-                                    ])
+                                                    ]),
                                     ->afterStateUpdated(function ($state) {
                                         if ($state != null) {
                                             $cliente = Cliente::find($state);

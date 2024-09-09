@@ -158,12 +158,23 @@ class Dashboard extends \Filament\Pages\Dashboard
             $hoje = Carbon::today();
             $dataVencimento = Carbon::parse($cr->data_vencimento);
             $qtd_dias = $hoje->diffInDays($dataVencimento, false);
-            if ($qtd_dias <= 3 && $qtd_dias >= 0) {
+            if ($qtd_dias <= 3 && $qtd_dias > 0) {
 
                 Notification::make()
                     ->title('ATENÇÃO: Contas a receber próxima.')
                     ->body('Do Cliente ' . $cr->cliente->nome. ' no valor de ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d-m-Y').'.')
                     ->success()
+                    //->persistent()
+                    ->send();
+
+
+            }
+            if ($qtd_dias == 0) {
+
+                Notification::make()
+                    ->title('ATENÇÃO: Contas a receber vencendo hoje.')
+                    ->body('Do Cliente ' . $cr->cliente->nome. ' no valor de ' . $cr->valor_parcela . ' com vencimento em '.carbon::parse($cr->data_vencimento)->format('d-m-Y').'.')
+                    ->warning()
                     //->persistent()
                     ->send();
 
