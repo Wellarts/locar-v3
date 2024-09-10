@@ -160,11 +160,70 @@ class Dashboard extends \Filament\Pages\Dashboard
             $dataVencimento = Carbon::parse($cr->data_vencimento);
             $qtd_dias = $hoje->diffInDays($dataVencimento, false);
             if ($qtd_dias <= 3 && $qtd_dias >= 0) {
+                Notification::make()
+                    ->title('ATENÇÃO: Conta a receber com vencimento próximo.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ <b>' . $cr->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cr->data_vencimento)->format('d/m/Y').'</b>.')
+                    ->success()
+                    //->persistent()
+                    ->send();
 
+
+            }
+            if ($qtd_dias == 0) {
+                Notification::make()
+                    ->title('ATENÇÃO: Conta a receber com vencimento para hoje.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ <b>' . $cr->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cr->data_vencimento)->format('d/m/Y').'</b>.')
+                    ->warning()
+                    //->persistent()
+                    ->send();
+
+
+            }
+            if ($qtd_dias < 0) {
+                Notification::make()
+                    ->title('ATENÇÃO: Conta a receber vencida.')
+                    ->body('Do cliente <b>' . $cr->cliente->nome. '</b> no valor de R$ <b>' . $cr->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cr->data_vencimento)->format('d/m/Y').'</b>.')
+                    ->danger()
+                    //->persistent()
+                    ->send();
+
+
+            }
+        }
+
+        //***********NOTIFICAÇÃO DE CONTAS A PAGAR*************
+        $contasPagarVencer = ContasPagar::where('status','=','0')->get();
+        $hoje = Carbon::today();
+
+        foreach ($contasPagarVencer as $cp) {
+            $hoje = Carbon::today();
+            $dataVencimento = Carbon::parse($cp->data_vencimento);
+            $qtd_dias = $hoje->diffInDays($dataVencimento, false);
+            if ($qtd_dias <= 3 && $qtd_dias >= 0) {
                 Notification::make()
                     ->title('ATENÇÃO: Conta a pagar com vencimento próximo.')
                     ->body('Do fornecedor <b>' . $cp->fornecedor->nome. '</b> no valor de R$ <b>' . $cp->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cp->data_vencimento)->format('d/m/Y').'</b>.')
                     ->success()
+                    //->persistent()
+                    ->send();
+
+
+            }
+            if ($qtd_dias == 0) {
+                Notification::make()
+                    ->title('ATENÇÃO: Conta a pagar com vencimento para hoje.')
+                    ->body('Do fornecedor <b>' . $cp->fornecedor->nome. '</b> no valor de R$ <b>' . $cp->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cp->data_vencimento)->format('d/m/Y').'</b>.')
+                    ->warning()
+                    //->persistent()
+                    ->send();
+
+
+            }
+            if ($qtd_dias < 0) {
+                Notification::make()
+                    ->title('ATENÇÃO: Conta a pagar vencida.')
+                    ->body('Do fornecedor <b>' . $cp->fornecedor->nome. '</b> no valor de R$ <b>' . $cp->valor_parcela . '</b> com vencimento em <b>'.carbon::parse($cp->data_vencimento)->format('d/m/Y').'</b>.')
+                    ->danger()
                     //->persistent()
                     ->send();
 
