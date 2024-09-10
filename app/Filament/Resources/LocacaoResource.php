@@ -350,6 +350,7 @@ class LocacaoResource extends Resource
                                                         '15' => 'Quinzenal',
                                                         '30' => 'Mensal',
                                                     ])
+                                                    ->default(7)
                                                     ->label('Próximas Parcelas'),
                                                 Forms\Components\TextInput::make('parcelas_financeiro')
                                                     ->hidden(fn(Get $get): bool => !$get('status_financeiro'))
@@ -478,7 +479,7 @@ class LocacaoResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('ID'),
-                Tables\Columns\ImageColumn::make('assinatura_contrato'),
+                
                 Tables\Columns\TextColumn::make('cliente.nome')
                     ->sortable()
                     ->searchable()

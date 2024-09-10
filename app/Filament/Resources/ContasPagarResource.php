@@ -54,6 +54,7 @@ class ContasPagarResource extends Resource
                         '15' => 'Quinzenal',
                         '30' => 'Mensal',
                     ])
+                    ->default(30)
                     ->label('Próximas Parcelas'),
                 Forms\Components\TextInput::make('parcelas')
                     ->live(onBlur: true)
