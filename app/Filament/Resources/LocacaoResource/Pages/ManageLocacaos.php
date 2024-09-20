@@ -87,7 +87,7 @@ class ManageLocacaos extends ManageRecords
                             $addFluxoCaixa = [
                                 'valor' => $data['valor_total_financeiro'],
                                 'tipo'  => 'CREDITO',
-                                'obs'   => 'Recebimento referente da locação nº: ' . $record->id . '',
+                                'obs'   => 'Recebimento da conta do cliente '.$record->cliente->nome.'',
                             ];
 
                             FluxoCaixa::create($addFluxoCaixa);
