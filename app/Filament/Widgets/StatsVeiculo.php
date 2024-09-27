@@ -8,6 +8,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsVeiculo extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
 

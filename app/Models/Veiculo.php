@@ -34,6 +34,8 @@ class Veiculo extends Model
         'status_locado',
         'obs',
         'documentos',
+        
+        
     ];
 
     protected $casts = [
@@ -53,6 +55,11 @@ class Veiculo extends Model
     public function CustoVeiculo()
     {
         return $this->hasMany(CustoVeiculo::class);
+    }
+
+    public function Locacao()
+    {
+        return $this->hasMany(Locacao::class);
     }
 
     public function Temp_lucratividade()
