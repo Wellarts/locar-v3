@@ -48,7 +48,7 @@ class LucroVeiculo extends Page implements HasForms
                 DatePicker::make('fim')
                     ->label('Data de Fim'),
                     Select::make('veiculo_id')
-                        ->searchable()
+                         ->searchable()
                         ->options(Veiculo::all()->pluck('placa', 'id')->toArray())
                         ->live()
                        // ->searchable()
