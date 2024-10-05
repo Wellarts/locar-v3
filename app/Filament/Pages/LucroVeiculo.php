@@ -48,25 +48,24 @@ class LucroVeiculo extends Page implements HasForms
                     ->label('Data de Início'),
                 DatePicker::make('fim')
                     ->label('Data de Fim'),
-                    // Select::make('veiculo_id')
-                    //      ->searchable()
-                    //     ->options(Veiculo::all()->pluck('modelo', 'id')->toArray())
-                    //     ->live()
-                    //    // ->relationship(name: 'Veiculo', titleAttribute: 'placa')
-                    //    // ->searchable()
-                    //     ->label('Veículo')
-                    //     ->afterStateUpdated(function ($state, Set $set, Get $get) {
-                    //          //   dd($state);
+                    Select::make('veiculo_id')
+                        //->searchable()
+                        ->options(Veiculo::all()->pluck('placa', 'id'))
+                        ->live()
+                       // ->relationship(name: 'Veiculo', titleAttribute: 'placa')
+                        ->label('Veículo')
+                        ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                             //   dd($state);
 
-                    //           $total_locacao = Locacao::where('veiculo_id', $state)->whereBetween('data_saida',[$get('inicio'),$get('fim')])->sum('valor_total_desconto');
-                    //           $total_custo = CustoVeiculo::where('veiculo_id', $state)->whereBetween('data',[$get('inicio'),$get('fim')])->sum('valor');
-                    //        // dd('$total_custo');
-                    //             $set('total_locacao', $total_locacao);
-                    //             $set('total_custo', $total_custo );
-                    //             $set('lucro', $total_locacao - $total_custo);
+                              $total_locacao = Locacao::where('veiculo_id', $state)->whereBetween('data_saida',[$get('inicio'),$get('fim')])->sum('valor_total_desconto');
+                              $total_custo = CustoVeiculo::where('veiculo_id', $state)->whereBetween('data',[$get('inicio'),$get('fim')])->sum('valor');
+                           // dd('$total_custo');
+                                $set('total_locacao', $total_locacao);
+                                $set('total_custo', $total_custo );
+                                $set('lucro', $total_locacao - $total_custo);
 
 
-                    //     }),
+                        }),
                   //  Forms\Components\TextInput::make('total_locacao')
                         Money::make('total_locacao')
                         ->currencyMask(thousandSeparator: '.',decimalSeparator: ',',precision: 2)
