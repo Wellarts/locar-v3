@@ -241,22 +241,13 @@ class LocacaoResource extends Resource
                                         $semanasCompletas = floor($diferencaEmSemanas);
                                         // Calculando os dias restantes (módulo 7)
                                         $diasRestantes = $diferencaEmDias % 7;
-
                                         //Calculando os meses
                                         $mesesCompleto = $diferencaEmDias / 30;
                                         //Calculando os meses em número inteiro
                                         $mesesCompleto = floor($mesesCompleto);
                                         //Calculando semanas restantes
                                         $diasRestantesMeses = $diferencaEmDias % 30;
-
-                                        
-
-                                        
-
-
-
-
-
+     
                                         Notification::make()
                                             ->title('ATENÇÃO')
                                             ->body(
@@ -264,10 +255,7 @@ class LocacaoResource extends Resource
                                                 <b>'.$qtd_dias.' DIA(AS).</b><br>
                                                 <b>'.$semanasCompletas.' SEMANA(AS) e '.$diasRestantes.' DIA(AS). </b> <br>
                                                 <b>'.$mesesCompleto.' MÊS/MESES  e '.$diasRestantesMeses.' DIA(AS).</b><br>
-                                                
-
-                                                
-                                                ')                                            
+                                            ')                                            
                                             ->danger()
                                             ->persistent()
                                             ->send();
