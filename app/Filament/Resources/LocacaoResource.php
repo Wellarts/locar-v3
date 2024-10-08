@@ -263,7 +263,7 @@ class LocacaoResource extends Resource
                                                 'Para as datas escolhida temos:<br>
                                                 <b>'.$qtd_dias.' DIA(AS).</b><br>
                                                 <b>'.$semanasCompletas.' SEMANA(AS) e '.$diasRestantes.' DIA(AS). </b> <br>
-                                                <b>'.$mesesCompleto.' MES/MESES  e '.$diasRestantesMeses.' DIA(AS).</b><br>
+                                                <b>'.$mesesCompleto.' MÊS/MESES  e '.$diasRestantesMeses.' DIA(AS).</b><br>
                                                 
 
                                                 
