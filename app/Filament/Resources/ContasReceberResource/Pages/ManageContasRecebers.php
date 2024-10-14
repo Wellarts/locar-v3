@@ -38,7 +38,8 @@ class ManageContasRecebers extends ManageRecords
                                         'valor_recebido' => 0.00,
                                         'status' => 0,
                                         'obs' => $data['obs'],
-                                        'valor_parcela' => $valor_parcela,
+                                       // 'valor_parcela' => $valor_parcela,
+                                        'valor_parcela' => $data['valor_parcela'],
                                         ];
                             ContasReceber::create($parcelas);
                     }

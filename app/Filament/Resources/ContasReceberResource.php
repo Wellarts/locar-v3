@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\ExportAction;
 use App\Filament\Exports\ContasReceberExporter;
 use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Notifications\Actions\Action;
+use Filament\Notifications\Notification;
 
 class ContasReceberResource extends Resource
 {
@@ -117,6 +119,19 @@ class ContasReceberResource extends Resource
                     ),
 
                 Forms\Components\TextInput::make('valor_parcela')
+                    ->label('Valor da Parcela')
+                    ->live(debounce: 500)
+                    ->afterStateUpdated(function ($state, $context) {
+                        if($context === 'create'){
+                            Notification::make()
+                            ->title('ATENÇÃO')
+                            ->body('Alterar o campo <b>Valor da Parcela</b>, irá alterar o valor de todas as parcelas que serão geradas!')
+                             ->danger()
+                            ->persistent()
+                            ->send();
+                        }
+                        
+                    })
                     ->numeric()
                     ->required(),
                 Forms\Components\TextInput::make('valor_recebido')
@@ -205,7 +220,7 @@ class ContasReceberResource extends Resource
                     ->query(fn(Builder $query): Builder => $query->where('status', false))->default(true),
                 Filter::make('Recebidas')
                     ->query(fn(Builder $query): Builder => $query->where('status', true)),
-                SelectFilter::make('cliente')->relationship('cliente', 'nome'),
+                SelectFilter::make('cliente')->relationship('cliente', 'nome')->searchable(),
                 Tables\Filters\Filter::make('data_vencimento')
                     ->form([
                         Forms\Components\DatePicker::make('vencimento_de')
@@ -235,7 +250,7 @@ class ContasReceberResource extends Resource
                             $addFluxoCaixa = [
                                 'valor' => ($record->valor_parcela),
                                 'tipo'  => 'CREDITO',
-                                'obs'   => 'Recebimento da conta do cliente '.$record->cliente->nome.' da parcela nº: '.$record->ordem_parcela.'',
+                                'obs'   => 'Recebimento da conta do cliente ' . $record->cliente->nome . ' da parcela nº: ' . $record->ordem_parcela . '',
                             ];
 
                             FluxoCaixa::create($addFluxoCaixa);
