@@ -479,7 +479,7 @@ class LocacaoResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('ID'),
-                
+
                 Tables\Columns\TextColumn::make('cliente.nome')
                     ->sortable()
                     ->searchable()
