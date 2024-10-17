@@ -205,7 +205,7 @@ class ContasPagarResource extends Resource
                 ->query(fn (Builder $query): Builder => $query->where('status', false))->default(true),
                 Filter::make('Pagas')
                 ->query(fn (Builder $query): Builder => $query->where('status', true)),
-                 SelectFilter::make('fornecedor')->relationship('fornecedor', 'nome'),
+                 SelectFilter::make('fornecedor')->relationship('fornecedor', 'nome')->searchable(),
                  Tables\Filters\Filter::make('data_vencimento')
                     ->form([
                         Forms\Components\DatePicker::make('vencimento_de')
