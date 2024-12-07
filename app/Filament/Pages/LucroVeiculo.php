@@ -15,7 +15,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Database\Eloquent\Builder;
 use Leandrocfe\FilamentPtbrFormFields\Money;
 
 class LucroVeiculo extends Page implements HasForms
@@ -49,10 +48,10 @@ class LucroVeiculo extends Page implements HasForms
                 DatePicker::make('fim')
                     ->label('Data de Fim'),
                     Select::make('veiculo_id')
-                        //->searchable()
-                        ->options(Veiculo::all()->pluck('placa', 'id'))
+                        ->searchable()
+                        ->options(Veiculo::all()->pluck('placa', 'id')->toArray())
                         ->live()
-                       // ->relationship(name: 'Veiculo', titleAttribute: 'placa')
+                       // ->searchable()
                         ->label('Veículo')
                         ->afterStateUpdated(function ($state, Set $set, Get $get) {
                              //   dd($state);

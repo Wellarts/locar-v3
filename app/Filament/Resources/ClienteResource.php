@@ -91,7 +91,7 @@ class ClienteResource extends Resource
                 Forms\Components\TextInput::make('cnh')
                         ->label('CNH'),
                 Forms\Components\DatePicker::make('validade_cnh')
-                       // ->format('d/m/Y')
+                     //   ->format('d/m/Y')
                         ->label('Valiade da CNH'),
                 Forms\Components\TextInput::make('rg')
                         ->label('RG'),
@@ -130,7 +130,7 @@ class ClienteResource extends Resource
                 ->label('Cidade'),
             Tables\Columns\TextColumn::make('telefone_1')
 
-               // ->formatStateUsing(fn (string $state) => vsprintf('(%d%d)%d%d%d%d%d-%d%d%d%d', str_split($state)))
+              //  ->formatStateUsing(fn (string $state) => vsprintf('(%d%d)%d%d%d%d%d-%d%d%d%d', str_split($state)))
                 ->label('Telefone'),
 
             Tables\Columns\TextColumn::make('email')
