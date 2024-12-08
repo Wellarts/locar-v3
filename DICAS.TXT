@@ -1,4 +1,16 @@
-cp locar-v3\app\Filament\Resources\LocacaoResource.php locar-lucena\app\Filament\Resources\LocacaoResource.php
-cp locar-v3\app\Filament\Resources\VeiculoResource.php locar-lucena\app\Filament\Resources\VeiculoResource.php
-cp locar-v3\app\Filament\Widgets\VeiculoChegando.php locar-lucena\app\Filament\Widgets\VeiculoChegando.php
-cp locar-v3\app\Filament\Widgets\VeiculoDisponivel.php locar-lucena\app\Filament\Widgets\VeiculoDisponivel.php
+@echo off
+setlocal enabledelayedexpansion
+
+:: Configurações
+set origem="locar-v3\app\Filament"
+set destinos="locar-sv\app\Filament" "locar-lucena\app\Filament" "locar-hb\app\Filament" "locar-jps\app\Filament" "locar-motomaster\app\Filament" "locar-guaratiba\app\Filament" "locar-vrum\app\Filament" "locar-motonaveia\app\Filament" "locar-novaloc\app\Filament"
+set log="log.txt"
+
+:: Loop para cada pasta de destino
+for %%d in (%destinos%) do (
+    :: Copia os arquivos mais recentes, sobrescrevendo os existentes
+    robocopy "!origem!" "%%d" /MIR /LOG+:!log!
+
+    :: Adiciona uma linha no log indicando o destino processado
+    echo Processado: %%d >> !log!
+)
