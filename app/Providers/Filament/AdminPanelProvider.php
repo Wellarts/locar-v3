@@ -58,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
                    function (): string {
                       return Blade::render('Versão: 1.0v');
                    }
+                   
               )
             ->resources([
                 config('filament-logger.activity_resource')
